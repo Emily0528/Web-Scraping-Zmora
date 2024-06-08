@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block title %} Śmieszne zagadki {% endblock %} {%
+block content %}
+
+<main>
+  <h1>Śmieszne zagadki</h1>
+
+  {% for puzzle_long in puzzles %}
+  <div class="quote-container">
+    <div class="card-text">{{ puzzle_long }}</div>
+  </div>
+  {% endfor %}
+</main>
+{% endblock %}

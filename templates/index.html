@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block title %} Zabawna Zmora {% endblock %} {%
+block content %}
+<main>
+  <h2>Aktualnie trwa <b>{{ current_day }}</b> dzień roku.</h2>
+  <h1>
+    Do końca roku pozostało: <b><span>{{ days_left }}</span></b> dni
+  </h1>
+  <p id="detal">&</p>
+
+  <div id="clock">Loading...</div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const endOfDay = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1,
+        0,
+        0,
+        0
+      );
+      const timeLeft = endOfDay - now;
+
+      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      const formattedTime = `${String(hours).padStart(2, "0")}:${String(
+        minutes
+      ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+      document.getElementById("clock").textContent = formattedTime;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+
+  {% for puzzle in puzzles_and_buttons %}
+  <div class="contener">
+    <div class="naglowek"><h2>Zagadka Dnia</h2></div>
+    <div class="quote-container">
+      <div class="card-text">{{ puzzle }}</div>
+    </div>
+  </div>
+
+  {% endfor %}
+  <div class="box">
+    <h1>Życzenia z humorem</h1>
+    <div class="gradient">
+      <div class="text-container">
+        {% for wish in birthday_wishes %}
+        <div class="text-item">
+          <div class="wish bck">
+            <h3>{{ wish.title }}</h3>
+            <p>{{ wish.paragraph }}</p>
+            <div class="clean-text">{{ wish.clean_text }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <h1>Śmieszne zagadki</h1>
+    <div class="horizontal">
+      {% for puzzle_long in puzzles %}
+      <div class="quote-box">
+        <div class="card-text">{{ puzzle_long }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+{% endblock %}

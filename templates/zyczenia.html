@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block title %} Życzenia z humorem {% endblock %} {%
+block content %}
+<main>
+  <h1>Życzenia z humorem</h1>
+
+  <div class="wishes-container">
+    {% for wish in birthday_wishes %}
+    <div class="wishes-box">
+      <div class="wish bck">
+        <h3>{{ wish.title }}</h3>
+        <p>{{ wish.paragraph }}</p>
+        <div class="clean-text">{{ wish.clean_text }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}
